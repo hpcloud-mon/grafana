@@ -1,10 +1,12 @@
 define([
   'angular',
   'lodash',
+  'jquery',
+  'config',
   'kbn',
-  'moment',
+  'moment'
 ],
-function (angular, _, kbn) {
+function (angular, _, $, config, kbn, moment) {
   'use strict';
 
   var module = angular.module('grafana.services');
@@ -62,7 +64,9 @@ function (angular, _, kbn) {
             var value = target.condition_value;
             params.dimensions = key + ':' + value;
           }
-          params.merge_metrics = 'true';
+          if (config.merge_metrics) {
+            params.merge_metrics = config.merge_metrics;
+          }
           return this.doGetStatisticsRequest(params, target.alias, target.label, startTime).then(handleGetStatisticsResponse);
         }
         return [];
