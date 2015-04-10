@@ -144,7 +144,7 @@ define([
           });
         };
 
-        MonDatasource.prototype.getMetricDimesions = function (seriesName) {
+        MonDatasource.prototype.getMetricDimensions = function (seriesName) {
           return this.doGetMetricsRequest(seriesName).then(function (data) {
             if (!data) {
               return [];
@@ -176,7 +176,7 @@ define([
           for (var i = 0; i < returnTargets.length; i++) {
             var target = returnTargets[i];
             if (!target.merge) {
-              targets.push(this.getMetricDimesions(target.series).then(function (dimensions) {
+              targets.push(this.getMetricDimensions(target.series).then(function (dimensions) {
                 var target_list = []
                 var id = 1
                 for (var i = 0; i < dimensions.length; i++) {
@@ -298,7 +298,7 @@ define([
             var timeCol = series.columns.indexOf('timestamp');
 
             _.each(series.columns, function (column, index) {
-              if (column === "timestamp" || column === "id") {
+              if (column === "timestamp" || column === "id" || column === "value_meta") {
                 return;
               }
 
