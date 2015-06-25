@@ -297,8 +297,48 @@
           },
           "targets": [
             {
+              "function": "count",
+              "column": "value",
+              "series": "alarm-state-transitions-added-to-batch-counter[0]",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "persister"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "alarm-state-transitions-added-to-batch-counter[1]",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "persister"
+            },
+            {
+              "target": "",
               "function": "none",
-              "column": "value"
+              "column": "value",
+              "series": "http_status",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "persister"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "jvm.memory.total.max",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "persister"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "jvm.memory.total.used",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "persister"
             }
           ],
           "aliasColors": {},
