@@ -249,6 +249,7 @@
               "condition_filter": true,
               "condition_key": "component",
               "condition_value": "monasca-agent",
+              "merge": true,
               "interval": ""
             },
             {
@@ -258,7 +259,8 @@
               "series": "monasca.emit_time_sec",
               "condition_filter": true,
               "condition_key": "component",
-              "condition_value": "monasca-agent"
+              "condition_value": "monasca-agent",
+              "merge": true
             },
             {
               "target": "",
@@ -267,7 +269,8 @@
               "series": "monasca.thread_count",
               "condition_filter": true,
               "condition_key": "component",
-              "condition_value": "monasca-agent"
+              "condition_value": "monasca-agent",
+              "merge": true
             }
           ],
           "aliasColors": {},
@@ -559,7 +562,8 @@
               "series": "monasca.consumed_from_kafka",
               "condition_filter": true,
               "condition_key": "component",
-              "condition_value": "monasca-notification"
+              "condition_value": "monasca-notification",
+              "merge": true
             },
             {
               "target": "",
@@ -569,7 +573,8 @@
               "interval": "",
               "condition_filter": true,
               "condition_key": "component",
-              "condition_value": "monasca-notification"
+              "condition_value": "monasca-notification",
+              "merge": true
             },
             {
               "target": "",
@@ -578,7 +583,8 @@
               "series": "process.pid_count",
               "condition_filter": true,
               "condition_key": "process_name",
-              "condition_value": "kafka.Kafka"
+              "condition_value": "kafka.Kafka",
+              "merge": true
             }
           ],
           "aliasColors": {},
