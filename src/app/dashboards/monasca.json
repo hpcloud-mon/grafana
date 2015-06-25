@@ -15,7 +15,7 @@
       "editable": true,
       "collapse": false,
       "panels": [
-        {
+{
           "title": "Monasca API",
           "error": false,
           "span": 4,
@@ -69,8 +69,43 @@
               "column": "value",
               "series": "http_status",
               "condition_filter": true,
-              "condition_key": "service",
-              "condition_value": "monitoring"
+              "condition_key": "component",
+              "condition_value": "api",
+              "merge": true,
+              "dimensions": ""
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "metrics.published",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "api",
+              "merge": true,
+              "dimensions": ""
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "raw-sql.time.avg",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "api",
+              "merge": true,
+              "dimensions": ""
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "raw-sql.time.max",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "api",
+              "merge": true,
+              "dimensions": ""
             }
           ],
           "aliasColors": {},
