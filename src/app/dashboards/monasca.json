@@ -898,8 +898,39 @@
           },
           "targets": [
             {
-              "function": "none",
-              "column": "value"
+              "function": "count",
+              "column": "value",
+              "series": "influx.db.http.latency.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "monitoring"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "influx.db.http.status.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "monitoring"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "influx.db.queriesExecuted.cnt.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "monitoring"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "influx.db.queriesRx.cnt.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "monitoring"
             }
           ],
           "aliasColors": {},
