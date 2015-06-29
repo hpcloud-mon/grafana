@@ -989,13 +989,26 @@
             {
               "function": "count",
               "column": "value",
-              "series": "vertica.db.sess.cnt.tot"
+              "series": "vertica.db.sess.cnt.tot",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "database"
             },
             {
-              "target": "",
-              "function": "avg",
+              "function": "count",
               "column": "value",
-              "series": "vertica.db.sess.cnt.tot"
+              "series": "vertica.db.query.cnt.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "database"
+            },
+            {
+              "function": "count",
+              "column": "value",
+              "series": "vertica.db.queue.cnt.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "database"
             }
           ],
           "aliasColors": {},
