@@ -874,8 +874,7 @@
             "current": false,
             "total": false,
             "avg": false,
-            "alignAsTable": false,
-            "rightSide": true
+            "alignAsTable": false
           },
           "nullPointMode": "connected",
           "steppedLine": false,
