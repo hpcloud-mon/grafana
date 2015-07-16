@@ -15,7 +15,7 @@
       "editable": true,
       "collapse": false,
       "panels": [
-        {
+{
           "title": "Monasca API",
           "error": false,
           "span": 4,
@@ -69,8 +69,43 @@
               "column": "value",
               "series": "http_status",
               "condition_filter": true,
-              "condition_key": "service",
-              "condition_value": "monitoring"
+              "condition_key": "component",
+              "condition_value": "api",
+              "merge": true,
+              "dimensions": ""
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "metrics.published",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "api",
+              "merge": true,
+              "dimensions": ""
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "raw-sql.time.avg",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "api",
+              "merge": true,
+              "dimensions": ""
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "raw-sql.time.max",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "api",
+              "merge": true,
+              "dimensions": ""
             }
           ],
           "aliasColors": {},
@@ -214,6 +249,7 @@
               "condition_filter": true,
               "condition_key": "component",
               "condition_value": "monasca-agent",
+              "merge": true,
               "interval": ""
             },
             {
@@ -223,7 +259,8 @@
               "series": "monasca.emit_time_sec",
               "condition_filter": true,
               "condition_key": "component",
-              "condition_value": "monasca-agent"
+              "condition_value": "monasca-agent",
+              "merge": true
             },
             {
               "target": "",
@@ -232,7 +269,8 @@
               "series": "monasca.thread_count",
               "condition_filter": true,
               "condition_key": "component",
-              "condition_value": "monasca-agent"
+              "condition_value": "monasca-agent",
+              "merge": true
             }
           ],
           "aliasColors": {},
@@ -297,8 +335,48 @@
           },
           "targets": [
             {
+              "function": "count",
+              "column": "value",
+              "series": "alarm-state-transitions-added-to-batch-counter[0]",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "persister"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "alarm-state-transitions-added-to-batch-counter[1]",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "persister"
+            },
+            {
+              "target": "",
               "function": "none",
-              "column": "value"
+              "column": "value",
+              "series": "http_status",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "persister"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "jvm.memory.total.max",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "persister"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "jvm.memory.total.used",
+              "condition_filter": true,
+              "condition_key": "component",
+              "condition_value": "persister"
             }
           ],
           "aliasColors": {},
@@ -484,7 +562,8 @@
               "series": "monasca.consumed_from_kafka",
               "condition_filter": true,
               "condition_key": "component",
-              "condition_value": "monasca-notification"
+              "condition_value": "monasca-notification",
+              "merge": true
             },
             {
               "target": "",
@@ -494,7 +573,8 @@
               "interval": "",
               "condition_filter": true,
               "condition_key": "component",
-              "condition_value": "monasca-notification"
+              "condition_value": "monasca-notification",
+              "merge": true
             },
             {
               "target": "",
@@ -503,7 +583,8 @@
               "series": "process.pid_count",
               "condition_filter": true,
               "condition_key": "process_name",
-              "condition_value": "kafka.Kafka"
+              "condition_value": "kafka.Kafka",
+              "merge": true
             }
           ],
           "aliasColors": {},
@@ -699,7 +780,7 @@
         {
           "title": "MySQL - Alarm, Notification Data Store",
           "error": false,
-          "span": 6,
+          "span": 4,
           "editable": true,
           "type": "graph",
           "id": 12,
@@ -770,7 +851,7 @@
         {
           "title": "InfluxDB - Metrics, Logging, Events Data Store",
           "error": false,
-          "span": 6,
+          "span": 4,
           "editable": true,
           "type": "graph",
           "id": 13,
@@ -817,8 +898,117 @@
           },
           "targets": [
             {
-              "function": "none",
-              "column": "value"
+              "function": "count",
+              "column": "value",
+              "series": "influx.db.http.latency.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "monitoring"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "influx.db.http.status.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "monitoring"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "influx.db.queriesExecuted.cnt.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "monitoring"
+            },
+            {
+              "target": "",
+              "function": "count",
+              "column": "value",
+              "series": "influx.db.queriesRx.cnt.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "monitoring"
+            }
+          ],
+          "aliasColors": {},
+          "seriesOverrides": [],
+          "links": []
+        },
+        {
+          "title": "Vertica - Metrics, Logging, Events Data Store",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "graph",
+          "id": 15,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": false
+          },
+          "targets": [
+            {
+              "function": "count",
+              "column": "value",
+              "series": "vertica.db.sess.cnt.tot",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "database"
+            },
+            {
+              "function": "count",
+              "column": "value",
+              "series": "vertica.db.query.cnt.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "database"
+            },
+            {
+              "function": "count",
+              "column": "value",
+              "series": "vertica.db.queue.cnt.curr",
+              "condition_filter": true,
+              "condition_key": "service",
+              "condition_value": "database"
             }
           ],
           "aliasColors": {},
