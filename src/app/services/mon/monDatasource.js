@@ -143,8 +143,8 @@ function (angular, _, kbn) {
       });
     };
 
-    MonDatasource.prototype.getMetricDimensions = function (seriesName, seriesDimensions) {
-      return this.doGetMetricsRequest(seriesName, seriesDimensions).then(function (data) {
+    MonDatasource.prototype.getExpandedTargets = function (target, seriesDimensions) {
+      return this.doGetMetricsRequest(target.series, seriesDimensions).then(function (data) {
         if (!data) {
           return [];
         }
@@ -164,7 +164,13 @@ function (angular, _, kbn) {
           }
           results.push(tmp);
         }
-        return results;
+        var target_list = [];
+        for (var i = 0; i < results.length; i++) {
+          var temp = jQuery.extend({}, target);
+          temp.dimensions = results[i];
+          target_list.push(temp);
+        }
+        return target_list;
       });
     };
 
@@ -181,15 +187,7 @@ function (angular, _, kbn) {
             var value = target.condition_value;
             metricDimensions = key + ':' + value;
           }
-          targets.push(this.getMetricDimensions(target.series, metricDimensions).then(function (dimensions) {
-            var target_list = [];
-            for (var i = 0; i < dimensions.length; i++) {
-              var temp = jQuery.extend({}, target);
-              temp.dimensions = dimensions[i];
-              target_list.push(temp);
-            }
-            return target_list;
-          }));
+          targets.push(this.getExpandedTargets(target, metricDimensions))
         }
         else {
           target.dimensions = "";
