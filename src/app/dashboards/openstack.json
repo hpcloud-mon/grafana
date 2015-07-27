@@ -70,7 +70,6 @@
             {
               "target": "randomWalk('random walk')",
               "function": "none",
-              "label": "service",
               "column": "value",
               "series": "http_status"
             }
