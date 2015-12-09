@@ -31,16 +31,14 @@ function (angular, _, kbn) {
     MonDatasource.prototype.query = function (options) {
 
       var _this = this;
-      return $q.all(this.getTargets(options.targets)).then(function (args) {
+      var startTime = getMonTime(options.range.from);
+      return $q.all(this.getTargets(options.targets, startTime)).then(function (args) {
         var newTargets = _.flatten(args);
         var promises = _.map(newTargets, function (target) {
 
           if (target.hide || !((target.series && target.column) || target.query)) {
             return [];
           }
-
-          var startTime = getMonTime(options.range.from);
-          //var endTime = getMonTime(options.range.to);
 
           if (target.rawQuery) {
             alert("Raw queries not supported");
@@ -49,7 +47,6 @@ function (angular, _, kbn) {
           else {
             var params = {
               start_time: startTime
-              //end_time: endTime
             };
             if (target.function !== 'none') {
               params.statistics = target.function;
@@ -80,8 +77,8 @@ function (angular, _, kbn) {
       });
     };
 
-    MonDatasource.prototype.listColumns = function (seriesName) {
-      return this.doGetMetricsRequest(seriesName).then(function (data) {
+    MonDatasource.prototype.listColumns = function (seriesName, startTime) {
+      return this.doGetMetricsRequest(startTime, seriesName).then(function (data) {
         if (!data) {
           return [];
         }
@@ -102,8 +99,8 @@ function (angular, _, kbn) {
       });
     };
 
-    MonDatasource.prototype.listValues = function (seriesName) {
-      return this.doGetMetricsRequest(seriesName).then(function (data) {
+    MonDatasource.prototype.listValues = function (seriesName, startTime) {
+      return this.doGetMetricsRequest(startTime, seriesName).then(function (data) {
         if (!data) {
           return [];
         }
@@ -124,8 +121,8 @@ function (angular, _, kbn) {
       });
     };
 
-    MonDatasource.prototype.listSeries = function () {
-      return this.doGetMetricsRequest(null).then(function (data) {
+    MonDatasource.prototype.listSeries = function (startTime) {
+      return this.doGetMetricsRequest(startTime).then(function (data) {
         if (!data) {
           return [];
         }
@@ -143,8 +140,8 @@ function (angular, _, kbn) {
       });
     };
 
-    MonDatasource.prototype.getExpandedTargets = function (target, seriesDimensions) {
-      return this.doGetMetricsRequest(target.series, seriesDimensions).then(function (data) {
+    MonDatasource.prototype.getExpandedTargets = function (target, seriesDimensions, startTime) {
+      return this.doGetMetricsRequest(startTime, target.series, seriesDimensions).then(function (data) {
         if (!data) {
           return [];
         }
@@ -175,7 +172,7 @@ function (angular, _, kbn) {
     };
 
 
-    MonDatasource.prototype.getTargets = function (originalTargets) {
+    MonDatasource.prototype.getTargets = function (originalTargets, startTime) {
       var targets = [];
       var returnTargets = originalTargets;
       for (var i = 0; i < returnTargets.length; i++) {
@@ -187,7 +184,7 @@ function (angular, _, kbn) {
             var value = target.condition_value;
             metricDimensions = key + ':' + value;
           }
-          targets.push(this.getExpandedTargets(target, metricDimensions))
+          targets.push(this.getExpandedTargets(target, metricDimensions, startTime))
         }
         else {
           target.dimensions = "";
@@ -251,10 +248,12 @@ function (angular, _, kbn) {
     /**
      * Gets the metric definitions for the supplied metric name.
      * @param metricName
+     * @param metricDimensions
      * @param alias
+     * @param startTime
      * @returns {promise}
      */
-    MonDatasource.prototype.doGetMetricsRequest = function (metricName, metricDimensions, alias) {
+    MonDatasource.prototype.doGetMetricsRequest = function (startTime, metricName, metricDimensions, alias) {
       var _this = this;
       var deferred = $q.defer();
       var seriesName = metricName;
@@ -272,6 +271,10 @@ function (angular, _, kbn) {
 
         if (metricDimensions !== ''){
           params.dimensions = metricDimensions;
+        }
+
+        if (startTime !== ''){
+          params.start_time = startTime;
         }
 
         var options = {
