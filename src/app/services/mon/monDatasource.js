@@ -234,7 +234,11 @@ function (angular, _, kbn) {
           options.url = currentUrl + '/metrics/statistics';
         }
 
-        return $http(options).success(function (data) {
+        return $http(options).success(function (data, status, headers, config) {
+          if (headers('Content-Type').indexOf("text/html") != -1){
+            window.location =  window.location.origin;
+            return;
+          }
           data.alias = alias;
           data.label = label;
           data.startTime = startTime;
@@ -285,7 +289,11 @@ function (angular, _, kbn) {
           headers: headers
         };
 
-        return $http(options).success(function (data) {
+        return $http(options).success(function (data, status, headers, config) {
+          if (headers('Content-Type').indexOf("text/html") != -1){
+            window.location =  window.location.origin;
+            return;
+          }
           data.alias = alias;
           deferred.resolve(data);
         });
